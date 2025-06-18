@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  font-size: 18px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 1.5rem;
+}

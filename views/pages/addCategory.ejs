@@ -1,0 +1,31 @@
+<div class="form-container">
+    <h1>Add Category</h1>
+    <form action="/addCategory" method="POST"  enctype="multipart/form-data">
+        <div class="form-group">
+        <label for="Title">Category Name:</label>
+        <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        </div>
+        <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="file" accept="image/*" id="image" name="image" >
+        </div>
+        <button type="submit">Add Category</button>
+    </form>
+    <div class="form-links">
+        <a href="/categories">Back to Categories</a>
+        <a href="/games">Back to Games</a>
+</div>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (file && !file.type.startsWith('image/')) {
+    alert('Please upload a valid image file.');
+    e.target.value = ''; // Clear the invalid file
+  }
+});
+</script>
