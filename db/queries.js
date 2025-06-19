@@ -12,8 +12,8 @@ async function getAllCategories() {
 
 async function insertGame(game) {
   const query = `
-    INSERT INTO games (title, description, category, price, logo, hero_image)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO games (title, description, category, price, logo, hero_image, release_date, rating, publisher)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
   `;
   const values = [
     game.title,
@@ -21,7 +21,10 @@ async function insertGame(game) {
     game.category,
     game.price,
     game.logo,
-    game.hero_image
+    game.hero_image,
+    game.release_date,
+    game.rating,
+    game.publisher
   ];
 
   await pool.query(query, values);

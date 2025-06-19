@@ -1,1 +1,33 @@
+<div class="games-con">
 <h1> <%= title %></h1>
+ <div>
+    <div class="games-list">
+        <% if (games.length === 0) { %>
+            <p>No games available.</p>
+        <% } else { %>
+            <% games.forEach(game => { %>
+                <div class="game-item">
+                    <h2><%= game.title %></h2>
+                    <% if(game.price === 0.0) { %>
+                        <p>Free</p>
+                    <% } else { %>
+                        <p><%=game.price %>$</p>
+                        <% } %>
+                    
+                    <% if (game.logo) { %>
+                        <img src="/uploads/<%= game.logo %>" alt="<%= game.title %> Logo" width="100" height="100">
+                    <% } else { %>
+                        <p>No logo available</p>
+                    <% } %>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
+    <div class="form-links">
+        <a href="/addGame">Add New Game</a>
+        <a href="/categories">View Categories</a>
+        <a href="/">Back to Home</a>
+    </div>
+ </div>
+</div>

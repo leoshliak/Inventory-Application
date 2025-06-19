@@ -16,6 +16,8 @@ header {
     position: sticky;
     top: 0;
     width: 100%;
+    background-color: aliceblue;
+    z-index: 99;
 }
 
 li {
@@ -29,4 +31,8 @@ a {
 nav ul {
     display: flex;
     gap: 1.5rem;
+}
+
+.category-item {
+    border: 2px solid #000;
 }
