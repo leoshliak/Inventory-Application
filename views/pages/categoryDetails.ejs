@@ -1,0 +1,47 @@
+<div class="category-details-con">
+    <h1><%= title %></h1>
+
+    <div class="category-details">
+        <div class="image">
+            <% if (category.image) { %>
+                <img src="/uploads/<%= category.image %>" alt="<%= category.title %> Image" width="auto" height="400">
+            <% } else { %>
+                <p>No image available</p>
+            <% } %>
+        </div>
+
+        <div class="details">
+            <h2><%= category.title %></h2>
+            <p><strong>Description:</strong> <%= category.description || 'No description available' %></p>
+        </div>
+    </div>
+
+    <div class="games-list">
+        <% if (games.length === 0) { %>
+            <p>No games available in this category.</p>
+        <% } else { %>
+            <% games.forEach(game => { %>
+                <a href="/games/<%= game.id %>" class="game-item">
+                    <h3><%= game.title %></h3>
+                    <% if (game.price === 0.0) { %>
+                        <p>Free</p>
+                    <% } else { %>
+                        <p><%= game.price %>$</p>
+                    <% } %>
+
+                    <% if (game.logo) { %>
+                        <img src="/uploads/<%= game.logo %>" alt="<%= game.title %> Logo" width="100" height="100">
+                    <% } else { %>
+                        <p>No logo available</p>
+                    <% } %>
+                </a>
+            <% }) %>
+        <% } %>
+    </div>
+
+    <div class="form-links">
+        <a href="/addGame">Add New Game</a>
+        <a href="/categories">View Categories</a>
+        <a href="/">Back to Home</a>
+    </div>
+</div>

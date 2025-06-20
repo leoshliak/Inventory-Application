@@ -1,0 +1,26 @@
+<div class="game-details-con">
+    <h1><%= title  %></h1>
+    <div class="game-details">
+        <div class="image">
+            <% if (game.hero_image) { %>
+                <img src="/uploads/<%= game.hero_image %>" alt="<%= game.title %> Image" width="auto" height="400">
+            <% } else { %>
+                <p>No image available</p>
+            <% } %>
+        </div>
+        <div class="details">
+            <h2><%= game.title %></h2>
+            <p><strong>Price:</strong> <%= game.price === 0.0 ? 'Free' : game.price + '$' %></p>
+            <p><strong>Description:</strong> <%= game.description %></p>
+            <p><strong>Release Date:</strong> <%= game.release_date ? game.release_date.toDateString() : 'No release date available' %></p>
+            <p><strong>Publisher:</strong><%= game.publisher %></p>
+            <p><strong>Category:</strong> <%= game.category ? game.category : 'No category assigned' %></p>
+        </div>
+    </div>
+
+    <div class="form-links">
+        <a href="/addGame">Add New Game</a>
+        <a href="/categories">View Categories</a>
+        <a href="/">Back to Home</a>
+        </div>
+</div>

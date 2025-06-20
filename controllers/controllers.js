@@ -90,3 +90,27 @@ exports.postAddGame = [
     res.redirect('/games');
   }
 ]
+
+exports.getGameDetails = async (req, res) => {
+  const gameId = req.params.id;
+  const game = await db.getGameById(gameId);
+
+  if (!game) {
+    return res.status(404).render('pages/error', { title: 'Game Not Found', message: 'The requested game does not exist.' });
+  }
+  
+  renderWithLayout(res, 'pages/gameDetails', { title: game.title, game: game});
+}
+
+exports.getCategoryDetails = async (req, res) => {
+  const categoryId = req.params.id;
+  const category = await db.getCategoryById(categoryId);
+
+  if (!category) {
+    return res.status(404).render('pages/error', { title: 'Category Not Found', message: 'The requested category does not exist.' });
+  }
+
+  const games = await db.getAllGamesByCategory(category.title)
+
+  renderWithLayout(res, 'pages/categoryDetails', { title: category.title, category: category, games: Object.values(games) });
+}

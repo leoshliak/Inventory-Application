@@ -5,9 +5,37 @@ async function getAllGames() {
     return rows;
 }
 
+async function getGameById(id) {
+  const query = "SELECT * FROM games WHERE id = $1"
+  const game = await pool.query(query, [id]);
+  if (game.rows.length === 0) {
+    throw new Error(`Game with id ${id} not found`);
+  }
+  return game.rows[0];
+}
+
+async function getAllGamesByCategory(title) {
+  const query = `
+   SELECT * FROM GAMES
+   WHERE category = $1
+   ORDER BY title ASC
+  `;
+  const { rows } = await pool.query(query, [title]);
+  return rows;
+}
+
 async function getAllCategories() {
     const { rows } = await pool.query("SELECT * FROM categories");
     return rows;
+}
+
+async function getCategoryById(id) {
+  const query = "SELECT * FROM categories WHERE id = $1"
+  const category = await pool.query(query, [id]);
+  if (category.rows.length === 0) {
+    throw new Error(`Category with id ${id} not found`);
+  }
+  return category.rows[0];
 }
 
 async function insertGame(game) {
@@ -48,6 +76,8 @@ module.exports = {
     getAllGames,
     getAllCategories,
     insertGame,
-    insertCategory
-
+    insertCategory,
+    getGameById,
+    getCategoryById,
+    getAllGamesByCategory,
 }

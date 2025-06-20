@@ -5,14 +5,14 @@
         <p>No categories available.</p>
     <%  }%>
     <% categories.forEach(category => { %>
-        <div class="category-item">
+        <a href="/categories/<%= category.id %>" class="category-item">
             <h2><%= category.title %></h2>
            <!-- <p><%= category.description %></p>-->
             <% if (category.image) { %>
-                <img src="/uploads/<%= category.image %>" alt="<%= category.name %> Image" width="auto" height="400">
+                <img src="/uploads/<%= category.image %>" alt="<%= category.name %> Image" >
             <% } else { %>
                 <p>No image available</p>
             <% } %>
-        </div>
+            </a>
     <% }) %>
 </div>
