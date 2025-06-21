@@ -14,6 +14,12 @@ router.post('/addGame', gameImages ,controllers.postAddGame);
 
 router.get('/games/:id', controllers.getGameDetails);
 
+router.delete('/games/:id', controllers.deleteGame);
+
+router.get('/games/edit/:id', controllers.editGameForm);
+
+router.put('/games/edit/:id', gameImages, controllers.updateGamePut);
+
 router.get('/addCategory', controllers.getAddCategory);
 
 router.get('/categories', controllers.getAllCategories);

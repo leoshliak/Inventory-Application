@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const methodOverride = require('method-override');
+
+app.use(methodOverride('_method'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 

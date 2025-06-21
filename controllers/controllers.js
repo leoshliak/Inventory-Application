@@ -1,5 +1,6 @@
 const db = require('../db/queries');
 const { body, validationResult } = require('express-validator');
+const { renderWithLayout, deleteImage } = require('../utils');
 
 const categoryValidation = [
   body('title').notEmpty().withMessage('Category name is required'),
@@ -15,13 +16,6 @@ const gameValidation = [
   body('rating').isFloat({ min: 0, max: 10 }).withMessage('Rating must be between 0 and 10'),
   body('publisher').optional().isLength({ max: 100 }).withMessage('Publisher name must be less than 100 characters')
 ]
-
-function renderWithLayout(res, view, options = {}) {
-  res.render(view, options, (err, html) => {
-    if (err) throw err;
-    res.render('layout', { ...options, body: html });
-  });
-}
 
 exports.getHomePage = (req, res) => {
     renderWithLayout(res, 'pages/home', { title: 'Home' });
@@ -71,7 +65,7 @@ exports.postAddGame = [
   async (req, res) => {
    const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render('pages/addCategory', {
+      return res.status(400).render('pages/addGame', {
         title: 'Add Game',
         errors: errors.array(),
       });
@@ -114,3 +108,62 @@ exports.getCategoryDetails = async (req, res) => {
 
   renderWithLayout(res, 'pages/categoryDetails', { title: category.title, category: category, games: Object.values(games) });
 }
+
+exports.deleteGame = async (req, res) => {
+  const gameId = req.params.id;
+  const game = await db.getGameById(gameId);
+
+  if (!game) return res.status(404).send('Game not found');
+  await db.deleteGame(gameId);
+
+  if (game.logo) deleteImage(`/uploads/${game.logo}`);
+  if (game.hero_image) deleteImage(`/uploads/${game.hero_image}`);
+  res.redirect('/games');
+}
+
+exports.editGameForm = async (req, res) => {
+  const gameId = req.params.id;
+  const game = await db.getGameById(gameId);
+  const categories = await db.getAllCategories();
+
+  if (!game) {
+    return res.status(404).render('pages/error', { title: 'Game Not Found', message: 'The requested game does not exist.' });
+  }
+
+  renderWithLayout(res, 'pages/editGame', { title: 'Edit Game', game, categories: Object.values(categories) });
+}
+
+exports.updateGamePut = [
+  gameValidation,
+  async (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render('pages/editGame', {
+        title: 'Edit Game',
+        errors: errors.array(),
+      });
+    }
+
+    const gameId = req.params.id;
+    const { title, description, category, price, release_date, rating, publisher } = req.body;
+    const prevGame = await db.getGameById(gameId);
+    const logoFile = req.files.logo;
+    const heroImageFile = req.files.hero_image;
+
+    if (logoFile) {
+      deleteImage(`/uploads/${prevGame.logo}`);
+    }
+
+    if (heroImageFile) {
+      deleteImage(`/uploads/${prevGame.hero_image}`);
+    }
+   
+    await db.updateGame(gameId, {
+      title, description, category, price, release_date, rating, publisher,
+      logo: logoFile ? logoFile.filename : prevGame.logo,
+      hero_image: heroImageFile ? heroImageFile.filename : prevGame.hero_image
+    });
+
+    res.redirect(`/games/${gameId}`);
+  }
+]
