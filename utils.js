@@ -21,5 +21,5 @@ function deleteImage(filePath) {
 
 module.exports = {
     renderWithLayout,
-    deleteImage
+    deleteImage,
 }
