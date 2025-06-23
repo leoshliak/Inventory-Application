@@ -98,6 +98,17 @@ async function updateGame(id, game) {
   await pool.query(query, values);
 }
 
+async function updateCategory(id, category) {
+  const query = `
+  UPDATE categories
+  SET title = $1, description = $2, image = $3
+  WHERE id = $4
+  `;
+  const values = [category.title, category.description, category.image, id]
+
+  await pool.query(query, values);
+}
+
 module.exports = {
     getAllGames,
     getAllCategories,
@@ -107,5 +118,6 @@ module.exports = {
     getCategoryById,
     getAllGamesByCategory,
     deleteGame,
-    updateGame
+    updateGame,
+    updateCategory
 }

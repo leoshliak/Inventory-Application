@@ -28,4 +28,8 @@ router.get('/categories/:id', controllers.getCategoryDetails);
 
 router.post('/addCategory', categoryImage, controllers.createCategory);
 
+router.get('/categories/edit/:id', controllers.editCategoryForm);
+
+router.put('/categories/edit/:id', categoryImage, controllers.updateCategoryPut);
+
 module.exports = router;

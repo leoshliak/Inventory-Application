@@ -62,7 +62,7 @@
         <a href="/">Back to home</a>
     </div>
     <script>
-    document.querySelector('#logo').addEventListener('change', function (e) {
+       document.querySelector('#logo').addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (file && !file.type.startsWith('image/')) {
     alert('Please upload a valid image file.');
@@ -96,5 +96,4 @@ function setupImagePreview(inputId, previewId) {
   setupImagePreview('logo', 'logo-preview');
   setupImagePreview('hero_image', 'hero-preview');
     </script>
-</script>
 </div>

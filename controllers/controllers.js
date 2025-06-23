@@ -33,7 +33,10 @@ exports.getAddGame = async (req, res) => {
 
 exports.getAllCategories = async (req, res) => {
   const categories = await db.getAllCategories();
-  renderWithLayout(res, 'pages/categories', {title: 'Categories', categories: Object.values(categories)});
+  const unknown = categories.find(cat => cat.title === 'Unknown category');
+  const rest = categories.filter(cat => cat.title !== 'Unknown category');
+  const sortedCategories = unknown ? [...rest, unknown] : categories;
+  renderWithLayout(res, 'pages/categories', { title: 'Categories', categories: sortedCategories });
 }
 
 exports.getAddCategory = (req, res) => {
@@ -165,5 +168,44 @@ exports.updateGamePut = [
     });
 
     res.redirect(`/games/${gameId}`);
+  }
+]
+
+exports.editCategoryForm = async (req, res) => {
+  const categoryId = req.params.id;
+  const category = await db.getCategoryById(categoryId);
+
+  if (!category) {
+    return res.status(404).render('pages/error', { title: 'Category Not Found', message: 'The requested category does not exists. '});
+  }
+
+  renderWithLayout(res, 'pages/editCategory', { title: 'Edit Category', category });
+}
+
+exports.updateCategoryPut = [
+  categoryValidation,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render('pages/editCategory', {
+        title: 'Edit Category',
+        errors: errors.array(),
+      });
+    }
+
+    const categoryId = req.params.id;
+    const { title, description } = req.body;
+    const prevCategory = await db.getCategoryById(categoryId);
+    const imageFile = req.file;
+
+    if (imageFile) {
+      deleteImage(`/uploads/${prevCategory.image}`);
+    }
+
+    await db.updateCategory(categoryId, { title, description,
+      image: imageFile ? imageFile.filename : prevCategory.image
+    })
+
+    res.redirect(`/categories/${categoryId}`);
   }
 ]
