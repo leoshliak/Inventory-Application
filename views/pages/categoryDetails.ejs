@@ -9,14 +9,14 @@
                 <p>No image available</p>
             <% } %>
         </div>
-
+        <% if(category.title !== 'Unknown category') { %>
         <div class="buttons">
             <a href="/categories/edit/<%= category.id %>"><i class="fa-solid fa-pen-to-square"></i></a>
             <form action="/categories/<%= category.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                 <button class="category-delete" type="submit" onclick="return confirm('Are you sure you want to delete this category?');"><i class="fa-solid fa-trash-can"></i></button>
             </form>
         </div>
-
+        <% } %>
         <div class="details">
             <h2><%= category.title %></h2>
             <p><strong>Description:</strong> <%= category.description || 'No description available' %></p>
