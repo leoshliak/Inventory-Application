@@ -32,4 +32,6 @@ router.get('/categories/edit/:id', controllers.editCategoryForm);
 
 router.put('/categories/edit/:id', categoryImage, controllers.updateCategoryPut);
 
+router.delete('/categories/:id', controllers.deleteCategory);
+
 module.exports = router;

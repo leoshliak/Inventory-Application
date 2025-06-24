@@ -109,6 +109,15 @@ async function updateCategory(id, category) {
   await pool.query(query, values);
 }
 
+async function deleteCategory(id, title) {
+  if (title === 'Unknown category') {
+    throw new Error("Cannot delete the default category");
+  }
+
+  await pool.query("UPDATE games SET category = 'Unknown category' WHERE category = $1", [title])
+  await pool.query("DELETE FROM categories WHERE id = $1", [id]);
+}
+
 module.exports = {
     getAllGames,
     getAllCategories,
@@ -119,5 +128,6 @@ module.exports = {
     getAllGamesByCategory,
     deleteGame,
     updateGame,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }

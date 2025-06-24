@@ -78,7 +78,8 @@ exports.postAddGame = [
     const heroImageFile = req.files.hero_image ? req.files.hero_image[0] : 'placeholder.png';
 
     await db.insertGame({title, description, category, price, release_date, rating, 
-      publisher, logo: logoFile.filename, hero_image: heroImageFile.filename});
+      publisher, logo: logoFile.filename ? logoFile.filename : 'placeholder-icon.jpg',
+       hero_image: heroImageFile.filename ? heroImageFile.filename : 'placeholder.png'});
      /* console.log({
         title, description, category, price, release_date, rating, publisher,
         logo: logoFile.filename,
@@ -117,10 +118,17 @@ exports.deleteGame = async (req, res) => {
   const game = await db.getGameById(gameId);
 
   if (!game) return res.status(404).send('Game not found');
-  await db.deleteGame(gameId);
-
-  if (game.logo) deleteImage(`/uploads/${game.logo}`);
-  if (game.hero_image) deleteImage(`/uploads/${game.hero_image}`);
+  try {
+    await db.deleteGame(gameId, game.title);
+    if (game.logo && game.logo !== 'placeholder-icon.jpg') {
+      deleteImage(`/uploads/${game.logo}`);
+    }
+    if (game.hero_image && game.hero_image !== 'placeholder.png') {
+      deleteImage(`/uploads/${game.hero_image}`);
+    }
+  } catch (error) {
+    return res.status(400).render('pages/error', { title: 'Error Deleting Game', message: error.message });
+  }
   res.redirect('/games');
 }
 
@@ -209,3 +217,18 @@ exports.updateCategoryPut = [
     res.redirect(`/categories/${categoryId}`);
   }
 ]
+
+exports.deleteCategory = async (req, res ) => {
+  const categoryId = req.params.id;
+  const category = await db.getCategoryById(categoryId);
+  if (!category) return res.status(404).send('Category not found');
+  try {
+    await db.deleteCategory(categoryId, category.title);
+    if (category.image && category.image !== 'placeholder.png') {
+      deleteImage(`/uploads/${category.image}`);
+    }
+    res.redirect('/categories');
+  } catch (error) {
+    res.status(400).render('pages/error', { title: 'Error Deleting Category', message: error.message });
+  }
+}
