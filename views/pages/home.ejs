@@ -1,1 +1,38 @@
-<h1>Inventory App <%= title %></h1>
+<section class="hero">
+    <div class="hero-rest">
+    <h1>Video Games Inventory</h1>
+    <p>You can create, read, update and delete games and categories</p>
+    <a class="cta" href="/categories">
+    <button>Explore Categories</button>
+    </a>
+   </div>
+    <video loop autoplay muted disablepictureinpicture poster playsinline preload="auto">
+        <source src="/tunnel.mp4" type="video/mp4">
+    </video>
+</section>
+<section class="featured-c">
+    <h2>Featured Categories</h2>
+    <p>Discover top-rated games handpicked for your favorite genres</p>
+    <div class="f-categories">
+        <% categories.forEach((category, index) => { %>
+            <% if(index <= 2) { %>
+            <a href="/categories/<%= category.id %>" class="category-card">
+                <h3><%= category.title %></h3>
+                <img src="/uploads/<%= category.image %>"  alt="">
+            </a>
+            <% } %>
+        <% }) %>
+    </div>
+</section>
+<section class="highes-rated-games">
+    <h2>Highest Rated Games</h2>
+    <p>Community-voted favorites loved by gamers worldwide</p>
+    <div class="hr-games-list">
+        <% games.forEach((game, index) => { %>
+            <% if(index <= 1) { %>
+            <a href="/games/<%= game.id %>" class="game-poster">
+                <img src="/uploads/<%= game.hero_image %>" alt="<%= game.title %> Image">
+            </a>
+            <% } %>
+        <% }) %>
+    </div>
