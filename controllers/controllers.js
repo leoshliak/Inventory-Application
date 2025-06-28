@@ -17,8 +17,11 @@ const gameValidation = [
   body('publisher').optional().isLength({ max: 100 }).withMessage('Publisher name must be less than 100 characters')
 ]
 
-exports.getHomePage = (req, res) => {
-    renderWithLayout(res, 'pages/home', { title: 'Home' });
+exports.getHomePage = async (req, res) => {
+  const categories = (await db.getAllCategories()).filter(cat => cat.title !== 'Unknown category').slice(0, 4);
+  const games = await db.getAllGames();
+  const highestRatedGames = Object.values(games).sort((a, b) => b.rating - a.rating).slice(0, 4);
+  renderWithLayout(res, 'pages/home', {categories: Object.values(categories), games: Object.values(highestRatedGames)});
 }
 
 exports.getAllGames = async (req, res) => {
