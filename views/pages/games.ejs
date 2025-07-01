@@ -1,17 +1,16 @@
 <div class="games-con">
 <h1> <%= title %></h1>
- <div>
+<p class="g-des">Here you can find all the games available in our inventory.</p>
     <div class="games-list">
         <% if (games.length === 0) { %>
             <p>No games available.</p>
         <% } else { %>
             <% games.forEach(game => { %>
                 <a href="/games/<%= game.id %>" class="game-item">
-                    <h2><%= game.title %></h2>
-                    <% if(game.price === 0.0) { %>
-                        <p>Free</p>
+                    <% if(Number(game.price) === 0) { %>
+                       <p class="price">Free</p>
                     <% } else { %>
-                        <p><%=game.price %>$</p>
+                        <p class="price"><%=game.price %>$</p>
                         <% } %>
                     
                     <% if (game.logo) { %>
@@ -23,11 +22,4 @@
             <% }) %>
         <% } %>
     </div>
-
-    <div class="form-links">
-        <a href="/addGame">Add New Game</a>
-        <a href="/categories">View Categories</a>
-        <a href="/">Back to Home</a>
-    </div>
- </div>
 </div>
