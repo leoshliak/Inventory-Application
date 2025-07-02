@@ -7,20 +7,15 @@
         </div>
         <div class="form-group">
         <label for="description">Description:</label>
-        <textarea id="description" name="description"><%= category.description  %></textarea>
+        <textarea rows="8" id="description" name="description"><%= category.description  %></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group file-group">
         <label for="image">Image:</label>
         <input type="file" accept="image/*" id="image" name="image" >
-        <br>
          <img id="image-preview" src="/uploads/<%= category.image %>" alt="Current Image" style="max-height: 100px;">
         </div>
         <button type="submit">Update</button>
     </form>
-    <div class="form-links">
-        <a href="/categories">Back to Categories</a>
-        <a href="/games">Back to Games</a>
-        <a href="/">Back to home</a>
 </div>
 
 <script>
