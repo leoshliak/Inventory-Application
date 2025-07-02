@@ -1,12 +1,20 @@
 <div class="games-con">
-<h1> <%= title %></h1>
-<p class="g-des">Here you can find all the games available in our inventory.</p>
+    <div class="top">
+      <h1> <%= title %></h1>  
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" name="search" id="search" placeholder="Search games..." onkeyup="searchGames()">
+    </div>
+    </div>
+
     <div class="games-list">
+        <p class="not-found-text" style="display: none;"></p>
         <% if (games.length === 0) { %>
-            <p>No games available.</p>
+            <p>There is no games in this inventory, but you can add some</p>
         <% } else { %>
             <% games.forEach(game => { %>
                 <a href="/games/<%= game.id %>" class="game-item">
+                    <p style="display: none;"><%= game.title  %></p>
                     <% if(Number(game.price) === 0) { %>
                        <p class="price">Free</p>
                     <% } else { %>
@@ -23,3 +31,30 @@
         <% } %>
     </div>
 </div>
+<script>
+function searchGames() {
+    const input = document.getElementById('search');
+    const filter = input.value.trim().toLowerCase();
+    const gamesList = document.querySelector('.games-list');
+    const gameItems = gamesList.querySelectorAll('.game-item');
+    const notFoundText = document.querySelector('.not-found-text');
+    let hiddenItem = 0;
+
+    gameItems.forEach(item => {
+        const title = item.querySelector('p').textContent.toLowerCase();
+        if (title.includes(filter)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+            hiddenItem++;
+        }
+    });
+
+    if (hiddenItem === gameItems.length) {
+        notFoundText.style.display = 'block';
+        notFoundText.textContent = 'No games found';
+    } else {
+        notFoundText.style.display = 'none';
+    }
+}
+</script>
