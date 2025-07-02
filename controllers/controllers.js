@@ -25,8 +25,8 @@ exports.getHomePage = async (req, res) => {
 }
 
 exports.getAllGames = async (req, res) => {
-    const games = await db.getAllGames();
-    renderWithLayout(res, 'pages/games', { title: 'Games', games });
+  const games = await db.getAllGames();
+    renderWithLayout(res, 'pages/games', { title: 'Games', games: Object.values(games)});
 }
 
 exports.getAddGame = async (req, res) => {
