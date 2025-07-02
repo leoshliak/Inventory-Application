@@ -1,5 +1,4 @@
 <div class="game-details-con">
-    <h1><%= title  %></h1>
     <div class="game-details">
         <div class="image">
             <% if (game.hero_image) { %>
@@ -16,7 +15,7 @@
                      <button class="game-delete" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
             </div>
-            <p><strong>Price:</strong> <%= game.price === 0.0 ? 'Free' : game.price + '$' %></p>
+            <p><strong>Price:</strong> <%= Number(game.price) === 0.0 ? 'Free' : game.price + '$' %></p>
             <p><strong>Description:</strong> <%= game.description %></p>
             <p><strong>Release Date:</strong> <%= game.release_date ? game.release_date.toDateString() : 'No release date available' %></p>
             <p><strong>Publisher:</strong><%= game.publisher %></p>
