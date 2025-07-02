@@ -4,32 +4,32 @@
     <div class="category-details">
         <div class="image">
             <% if (category.image) { %>
-                <img src="/uploads/<%= category.image %>" alt="<%= category.title %> Image" width="auto" height="400">
+                <img src="/uploads/<%= category.image %>" alt="<%= category.title %> Image" width="auto" height="500">
             <% } else { %>
                 <p>No image available</p>
             <% } %>
         </div>
-        <% if(category.title !== 'Unknown category') { %>
+        <div class="category-data">
+        <div class="details">
+            <p><strong>Description:</strong> <%= category.description || 'No description available' %></p>
+        </div>
         <div class="buttons">
             <a href="/categories/edit/<%= category.id %>"><i class="fa-solid fa-pen-to-square"></i></a>
             <form action="/categories/<%= category.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                 <button class="category-delete" type="submit"><i class="fa-solid fa-trash-can"></i></button>
             </form>
         </div>
-        <% } %>
-        <div class="details">
-            <h2><%= category.title %></h2>
-            <p><strong>Description:</strong> <%= category.description || 'No description available' %></p>
-        </div>
     </div>
-
+</div>
+     <div class="category-games">
+        <h3>Category Games</h3>
     <div class="games-list">
         <% if (games.length === 0) { %>
             <p>No games available in this category.</p>
         <% } else { %>
             <% games.forEach(game => { %>
                 <a href="/games/<%= game.id %>" class="game-item">
-                    <% if (game.price === 0.0) { %>
+                    <% if (Number(game.price) === 0.0) { %>
                         <p class="price">Free</p>
                     <% } else { %>
                         <p class="price"><%= game.price %>$</p>
@@ -43,5 +43,6 @@
                 </a>
             <% }) %>
         <% } %>
+    </div>
     </div>
 </div>
