@@ -29,11 +29,10 @@
         <% } else { %>
             <% games.forEach(game => { %>
                 <a href="/games/<%= game.id %>" class="game-item">
-                    <h3><%= game.title %></h3>
                     <% if (game.price === 0.0) { %>
-                        <p>Free</p>
+                        <p class="price">Free</p>
                     <% } else { %>
-                        <p><%= game.price %>$</p>
+                        <p class="price"><%= game.price %>$</p>
                     <% } %>
 
                     <% if (game.logo) { %>
@@ -44,11 +43,5 @@
                 </a>
             <% }) %>
         <% } %>
-    </div>
-
-    <div class="form-links">
-        <a href="/addGame">Add New Game</a>
-        <a href="/categories">View Categories</a>
-        <a href="/">Back to Home</a>
     </div>
 </div>
