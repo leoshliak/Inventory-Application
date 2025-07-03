@@ -18,6 +18,7 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   background: #000;
   color: #fff;
+  overflow-x: hidden;
 }
 
 header {
@@ -25,7 +26,7 @@ header {
     align-items: center;
     justify-content: center;
     height: 65px;
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
     backdrop-filter: blur(10px);
@@ -33,8 +34,16 @@ header {
     z-index: 99;
 }
 
+.header-mobile {
+    display: none;
+}
+
 li {
     list-style: none;
+}
+
+#nav-repo {
+    display: none;
 }
 
 a {
@@ -132,7 +141,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: calc(100vh - 197px) ;
+    min-height: calc(100vh - 197px);
+    margin-top: 65px;
 }
 
 .featured-c {
@@ -145,6 +155,7 @@ main {
 
 .featured-c h2,
 .highes-rated-games h2 {
+    text-align: center;
     font-size: 2.8rem;
     letter-spacing: 0.8px;
     margin-bottom: 10px;
@@ -152,6 +163,7 @@ main {
 
 .featured-c p,
 .highes-rated-games p {
+    text-align: center;
     font-size: 1.2rem;
     letter-spacing: 0.2px;
     color: var(--secondary-color);
@@ -263,6 +275,7 @@ main {
 }
 
 .categories-con p {
+    text-align: center;
     font-size: 1.2rem;
     letter-spacing: 0.2px;
     margin-bottom: 30px;
@@ -300,6 +313,8 @@ main {
     width: 100%;
     margin-bottom: 20px;
     margin-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .games-con .top .search {
@@ -553,6 +568,11 @@ main {
     margin-bottom: 20px;
 }
 
+.category-details-con .image img {
+    width: auto;
+    height: 500px;
+}
+
 .category-details-con .category-data {
     display: flex;
     flex-direction: column;
@@ -562,36 +582,42 @@ main {
     margin-bottom: 25px;
 }
 
-.category-details-con .buttons {
+.category-details-con .category-data .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ .buttons {
     display: flex;
     align-items: baseline;
     gap: 20px;
 }
 
-.category-data .buttons .fa-pen-to-square, 
-.category-data .buttons .fa-trash-can {
+ .buttons .fa-pen-to-square, 
+ .buttons .fa-trash-can {
     font-size: 2rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.category-data .buttons .fa-pen-to-square {
+ .buttons .fa-pen-to-square {
     color: #4343c8;
 }
 
-.category-data .buttons .fa-pen-to-square:hover {
+ .buttons .fa-pen-to-square:hover {
     color: blue;
     transform: scale(1.05);
 }
 
-.category-data .buttons button {
+ .buttons button {
     background: transparent;
     border: none;
     outline: none;
     color: #d33d3d;
 }
 
-.category-data .buttons button:hover {
+ .buttons button:hover {
     color: red;
     transform: scale(1.05);
 }
@@ -618,6 +644,50 @@ main {
    font-size: 1.8rem;
    letter-spacing: 0.2px;
    margin-bottom: 15px;
+}
+
+.game-details {
+    display: flex;
+    justify-content: center;
+    gap: 20px
+}
+
+.game-details .details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    font-size: 1.2rem;
+}
+
+.game-details .details strong {
+  font-size: 1.3rem;
+  letter-spacing: 0.4px;
+  color: var(--accent-color);
+}
+
+.game-details .details p {
+    color: var(--secondary-color);
+    letter-spacing: 0.2px;
+    line-height: 28px;
+}
+
+.game-details .details .rating {
+    color: #f7f7f7;
+    font-weight: 600;
+}
+
+.game-details .image {
+ flex: 1;
+}
+
+.game-details .image img {
+    width: 100%;
+    height: auto;
+}
+
+.details h2 {
+    font-size: 2rem;
 }
 
 footer {
@@ -652,3 +722,290 @@ footer {
     text-shadow: 0 0 3px var(--accent-color);
     text-decoration: underline;
 }
+
+@media (max-width: 950px) {
+    .hr-games-list {
+        gap: 35px;
+    }
+
+    .game-poster {
+    height: auto;
+    width: 350px;
+   }
+
+   .games-con .top {
+    width: 90%;
+}
+}
+
+@media (max-width: 770px) {
+        .hr-games-list {
+        gap: 25px;
+        flex-direction: column;
+    }
+
+    .featured-c,
+    .highes-rated-games {
+        padding: 40px 20px;
+    }
+
+    .category-details-con .image img {
+    width: 100%;
+    height: auto;
+}
+
+.game-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+    align-items: center;
+    gap: 20px;
+}
+
+.game-details .details {
+    gap: 15px;
+    flex: none;
+}
+
+.game-details .image {
+    width: 100%;
+    flex: none;
+}
+
+.form-container form {
+    width: 100%;
+    max-width: 550px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+}
+
+nav {
+    width: 90%;
+}
+
+nav ul li a {
+   font-size: 1rem;
+}
+}
+
+
+@media (max-width: 512px) {
+    .header-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .header-mobile .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+    }
+
+    .menu-icon {
+        z-index: 5;
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 18px;
+        cursor: pointer;
+        color: var(--accent-color);
+    }
+
+        .menu-icon span, .menu-icon::before, .menu-icon::after {
+        content: "";
+        left: 0;
+        position: absolute;
+        height: 10%;
+        width: 100%;
+        transition: all 0.3s ease 0s;
+        background-color: var(--accent-color);
+    }
+
+    .menu-icon span {
+        top: 50%;
+        transform: scale(1) translateY(-50%);
+    }
+
+    .menu-icon::before {
+       top: 0;
+    }
+
+        .menu-icon::after {
+        bottom: 0;
+    }
+
+    .menu-icon.active span {
+        transform: scale(0) translateY(-50%);
+    }
+
+    .menu-icon.active::before {
+        top: 50%;
+        transform: rotate(-45deg) translateY(-50%);
+    }
+
+    .menu-icon.active::after {
+        bottom: 50%;
+        transform: rotate(45deg) translateY(50%);
+    }
+
+    header nav {
+        position: fixed;
+        top: 65px;
+        right: 100%;
+        width: 60%;
+        min-height: calc(100vh - 65px);
+        height: 100%;
+        background: var(--input-color);
+        overflow: auto;
+        transition: all 0.3s ease;
+        padding: 35px 30px;
+    }
+
+    header nav.active {
+        right: 40%;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        justify-content: unset;
+        gap: 35px;
+    }
+
+    nav ul li a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    }
+
+    #nav-repo {
+        display: block;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .cta button {
+    padding: 8px 16px;
+    font-size: 1.1rem;
+}
+
+.hero-rest {
+    margin-top: 0px;
+    transform: translateY(-20%);
+}
+
+.featured-c h2, .highes-rated-games h2 {
+    font-size: 2rem;
+}
+
+.featured-c p, .highes-rated-games p {
+    font-size: 1rem;
+}
+
+.category-card {
+    width: 300px;
+    height: auto;
+}
+
+    .games-con .top {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .games-con h1 {
+    font-size: 2rem;
+}
+
+.games-con .top .search {
+    gap: 8px;
+    padding: 8px 8px;
+}
+
+.games-con .top .search i {
+    font-size: 1.1rem;
+}
+
+.games-con .top .search input {
+    font-size: 0.9rem;
+    max-width: 130px;
+}
+
+.categories-con h1 {
+    font-size: 2rem;
+}
+
+.categories-con p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.category-card h3 {
+    bottom: -14%;
+    transform: translateY(-50%);
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.form-container h1 {
+    font-size: 2rem;
+}
+
+.form-container form {
+    margin-bottom: 20px;
+}
+
+.footer-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.footer-content p {
+    font-size: 0.9rem;
+}
+
+.categories-con {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+}
+
+@media (max-width: 470px) {
+
+    .hero-rest {
+       padding-left: 10px;
+       padding-right: 10px;
+    }
+
+        .hero h1 {
+        font-size: 1.9rem;
+    }
+
+        .hero p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+        .featured-c h2, .highes-rated-games h2 {
+        font-size: 1.8rem;
+    }
+
+    .featured-c p, .highes-rated-games p {
+        font-size: 0.9rem;
+    }
+
+        .game-poster {
+        width: 320px;
+    }
+}
+

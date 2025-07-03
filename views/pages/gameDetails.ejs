@@ -2,24 +2,25 @@
     <div class="game-details">
         <div class="image">
             <% if (game.hero_image) { %>
-                <img src="/uploads/<%= game.hero_image %>" alt="<%= game.title %> Image" width="auto" height="400">
+                <img src="/uploads/<%= game.hero_image %>" alt="<%= game.title %> Image" >
             <% } else { %>
                 <p>No image available</p>
             <% } %>
         </div>
         <div class="details">
             <h2><%= game.title %></h2>
+            <p><strong>Price:</strong> <%= Number(game.price) === 0.0 ? 'Free' : game.price + '$' %></p>
+            <p><strong>Description:</strong> <%= game.description %></p>
+            <p><strong>Rating:</strong> <span class="rating"><%= game.rating %></span> / 10</p>
+            <p><strong>Release Date:</strong> <%= game.release_date ? game.release_date.toDateString() : 'No release date available' %></p>
+            <p><strong>Publisher:</strong> <%= game.publisher %></p>
+            <p><strong>Category:</strong> <%= game.category ? game.category : 'No category assigned' %></p>
             <div class="buttons">
                 <a href="/games/edit/<%= game.id %>"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form action="/games/<%= game.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this game?');">
                      <button class="game-delete" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
             </div>
-            <p><strong>Price:</strong> <%= Number(game.price) === 0.0 ? 'Free' : game.price + '$' %></p>
-            <p><strong>Description:</strong> <%= game.description %></p>
-            <p><strong>Release Date:</strong> <%= game.release_date ? game.release_date.toDateString() : 'No release date available' %></p>
-            <p><strong>Publisher:</strong><%= game.publisher %></p>
-            <p><strong>Category:</strong> <%= game.category ? game.category : 'No category assigned' %></p>
         </div>
     </div>
 </div>
