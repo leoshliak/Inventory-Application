@@ -34,4 +34,13 @@ router.put('/categories/edit/:id', categoryImage, controllers.updateCategoryPut)
 
 router.delete('/categories/:id', controllers.deleteCategory);
 
+router.get('/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.status(200).send('DB CONNECTED!');
+  } catch (error) {
+    res.status(500).send(`DB ERROR: ${error.message}`);
+  }
+});
+
 module.exports = router;
