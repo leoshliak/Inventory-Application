@@ -35,4 +35,4 @@ This project was created as part of my learning journey with The Odin Project. I
 
 **Home page:**
 
-![image](https://github.com/user-attachments/assets/a2d2fd0f-7817-4a56-9fd3-a0f5e7423161)
+[![image](https://github.com/user-attachments/assets/a2d2fd0f-7817-4a56-9fd3-a0f5e7423161)](https://inventory-application-production-9d84.up.railway.app/)
