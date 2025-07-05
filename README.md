@@ -20,7 +20,8 @@ This project was created as part of my learning journey with The Odin Project. I
 
 **PostgreSQL**
 
-**⚙️ Features**
+
+### ⚙️ Features
 
 🎮 Add, edit, and remove video games
 
