@@ -32,3 +32,7 @@ This project was created as part of my learning journey with The Odin Project. I
 🗄️ PostgreSQL database for persistent storage
 
 📜 Server-side rendering with EJS
+
+**Home page:**
+
+![image](https://github.com/user-attachments/assets/a2d2fd0f-7817-4a56-9fd3-a0f5e7423161)
